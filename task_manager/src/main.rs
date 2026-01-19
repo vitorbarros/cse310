@@ -35,6 +35,7 @@ struct AppState {
     next_id: AtomicU64,
 }
 
+// Starts the HTTP server and wires up routes/state.
 #[tokio::main]
 async fn main() {
     let state = Arc::new(AppState::default());
@@ -53,11 +54,13 @@ async fn main() {
         .expect("server error");
 }
 
+// Returns all tasks in memory.
 async fn list_tasks(State(state): State<Arc<AppState>>) -> Json<Vec<Task>> {
     let tasks = state.tasks.lock().expect("tasks lock poisoned");
     Json(tasks.clone())
 }
 
+// Creates a new task with a generated id.
 async fn create_task(
     State(state): State<Arc<AppState>>,
     Json(payload): Json<CreateTask>,
@@ -75,6 +78,7 @@ async fn create_task(
     (StatusCode::CREATED, Json(task))
 }
 
+// Fetches a task by id.
 async fn get_task(
     State(state): State<Arc<AppState>>,
     Path(id): Path<u64>,
@@ -88,6 +92,7 @@ async fn get_task(
         .ok_or(StatusCode::NOT_FOUND)
 }
 
+// Updates title/completed for a task by id.
 async fn update_task(
     State(state): State<Arc<AppState>>,
     Path(id): Path<u64>,
@@ -110,6 +115,7 @@ async fn update_task(
     }
 }
 
+// Deletes a task by id.
 async fn delete_task(
     State(state): State<Arc<AppState>>,
     Path(id): Path<u64>,
