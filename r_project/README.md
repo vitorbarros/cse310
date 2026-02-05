@@ -4,7 +4,7 @@ As a software engineer, I built this project to strengthen my data analysis work
 
 I wrote this software to practice core R language features (vectors, data frames, functions, control flow), along with common data tooling (`dplyr`, `ggplot2`, `readr`). It reflects a realistic analysis pipeline I can reuse for future projects.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/65kzjCEiOQQ)
 
 # Development Environment
 
